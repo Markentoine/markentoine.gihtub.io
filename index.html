@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PICK A FRUIT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="./style/main.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./scripts/main.js"></script>
+</head>
+
+<body>
+    <aside class="menu">
+        <div class="closeMenu"><img src="./assets/cross.svg" alt="cross" id="cross"></div>
+        <div class="control start">PICK</div>
+        <div class="control restart">RESTART</div>
+        <div class="control language">LANGUAGES</div>
+        <div class="control english">ENGLISH</div>
+        <div class="control german">GERMAN</div>
+        <div class="control french">FRENCH</div>
+        <div class="control hungarian">HUNGARIAN</div>
+    </aside>
+
+    <header>
+        <div class="openMenu"><img src="./assets/menu.png" alt="hamburger" id="hamburger"></div>
+        <div class="title">
+            <div class="control start" id="pick">
+                <h1>PICK A FRUIT</h1>
+            </div>
+            <h2>Find the name of the fruit before the end of the harvest</h2>
+        </div>
+
+    </header>
+    <main>
+        <div class="playarea">
+
+            <div class="fullTree">
+                <div class="tree">
+                    <img src="./assets/springTree.png" alt="" id="springTree">
+                    <img src="./assets/autumTree.png" alt="" id="autumTree">
+                    <div class="apple" id="_1" data-top="205px"><img src="./assets/apple.png" alt="apple"></div>
+                    <div class="apple" id="_2" data-top="97px"><img src="./assets/apple.png"" alt="apple"></div>
+                    <div class="apple" id="_3" data-top="5px"><img src="./assets/apple.png"" alt="apple"></div>
+                    <div class="apple" id="_4" data-top="317px"><img src="./assets/apple.png"" alt="apple"></div>
+                    <div class="apple" id="_5" data-top="81px"><img src="./assets/apple.png"" alt="apple"></div>
+                    <div class="apple" id="_6" data-top="138px"><img src="./assets/apple.png"" alt="apple"></div>
+                    <div class="apple" id="_7" data-top="276px"><img src="./assets/apple.png"" alt="apple"></div>
+                    <div class="apple" id="_8" data-top="290px"><img src="./assets/apple.png"" alt="apple"></div>
+                </div>
+            </div>
+
+            <div class="guess">
+
+                <div class="alphabet">
+                    <div><img src="./assets/A.png" alt="A" class="letter" data-id="A"></div>
+                    <div><img src="./assets/B.png" alt="B" class="letter" data-id="B"></div>
+                    <div><img src="./assets/C.png" alt="C" class="letter" data-id="C"></div>
+                    <div><img src="./assets/D.png" alt="D" class="letter" data-id="D"></div>
+                    <div><img src="./assets/E.png" alt="E" class="letter" data-id="E"></div>
+                    <div><img src="./assets/F.png" alt="F" class="letter" data-id="F"></div>
+                    <div><img src="./assets/G.png" alt="G" class="letter" data-id="G"></div>
+                    <div><img src="./assets/H.png" alt="H" class="letter" data-id="H"></div>
+                    <div><img src="./assets/I.png" alt="I" class="letter" data-id="I"></div>
+                    <div><img src="./assets/J.png" alt="J" class="letter" data-id="J"></div>
+                    <div><img src="./assets/K.png" alt="K" class="letter" data-id="K"></div>
+                    <div><img src="./assets/L.png" alt="L" class="letter" data-id="L"></div>
+                    <div><img src="./assets/M.png" alt="M" class="letter" data-id="M"></div>
+                    <div><img src="./assets/N.png" alt="N" class="letter" data-id="N"></div>
+                    <div><img src="./assets/O.png" alt="O" class="letter" data-id="O"></div>
+                    <div><img src="./assets/P.png" alt="P" class="letter" data-id="P"></div>
+                    <div><img src="./assets/Q.png" alt="Q" class="letter" data-id="Q"></div>
+                    <div><img src="./assets/R.png" alt="R" class="letter" data-id="R"></div>
+                    <div><img src="./assets/S.png" alt="S" class="letter" data-id="S"></div>
+                    <div><img src="./assets/T.png" alt="T" class="letter" data-id="T"></div>
+                    <div><img src="./assets/U.png" alt="U" class="letter" data-id="U"></div>
+                    <div><img src="./assets/V.png" alt="V" class="letter" data-id="V"></div>
+                    <div><img src="./assets/W.png" alt="W" class="letter" data-id="W"></div>
+                    <div><img src="./assets/X.png" alt="X" class="letter" data-id="X"></div>
+                    <div><img src="./assets/Y.png" alt="Y" class="letter" data-id="Y"></div>
+                    <div><img src="./assets/Z.png" alt="Z" class="letter" data-id="Z"></div>
+                </div>
+
+                <div class="message">CHOOSE A LETTER</div>
+
+                <div class="fill"></div>
+                <div class="basket">
+                    <div>
+                        <h2>Your basket:</h2>
+                    </div>
+                    <div>
+                        <p class="basket_list">EMPTY</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

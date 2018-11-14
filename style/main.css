@@ -1,0 +1,310 @@
+html,
+body {
+    margin: 0;
+}
+
+body {
+    font: 20px Helevetica, Arial, sans serif;
+    position: relative;
+    color: green;
+    background-color: darkseagreen;
+}
+
+main {
+    display: flex;
+    width: 100vw;
+    height: 75vh;
+}
+
+header {
+    display: flex;
+    width: 100vw;
+    min-height: 20vh;
+}
+
+.openMenu {
+    width: 5%;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    justify-content: center;
+    align-items: center;
+}
+
+h1,
+h2 {
+    text-align: center;
+    display: inline-block;
+}
+
+/* MENU */
+
+aside {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    height: 50vh;
+    z-index: 10;
+}
+
+#hamburger {
+    width: 60%;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+#hamburger:hover {
+    cursor: pointer;
+}
+
+#hamburger:active {
+    transform: rotateZ(90deg);
+}
+
+#cross {
+    width: 29px;
+    margin-left: 16px;
+    margin-top: 16px;
+}
+
+#cross:hover {
+    cursor: pointer;
+}
+
+.control {
+    width: 130px;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    background-color: aqua;
+    opacity: 0.8;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.english,
+.german,
+.french,
+.hungarian {
+    display: none;
+}
+
+.control:hover {
+    opacity: 1;
+    color: #D82E20;
+    background-color: #37B852;
+    cursor: pointer;
+}
+
+#pick {
+    width: 50%;
+    padding: 5px;
+    font-size: 12px;
+}
+
+/*----------------------*/
+
+.playarea {
+    display: flex;
+    width: 100%;
+    min-width: 870px;
+    height: 100%;
+}
+
+/* TREE */
+
+.fullTree {
+    min-width: 650px;
+}
+
+.tree {
+    position: relative;
+    width: 650px;
+}
+
+#autumTree {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.apple {
+    position: absolute;
+    width: 60px;
+}
+
+/* APPLES POSITIONING */
+
+#_1 {
+    top: 205px;
+    left: 90px;
+}
+
+#_2 {
+    top: 97px;
+    left: 196px;
+}
+
+#_3 {
+    top: 5px;
+    left: 283px;
+}
+
+#_4 {
+    top: 317px;
+    left: 170px;
+}
+
+#_5 {
+    top: 81px;
+    left: 390px;
+}
+
+#_6 {
+    top: 138px;
+    left: 504px;
+}
+
+#_7 {
+    top: 276px;
+    left: 527px;
+}
+
+#_8 {
+    top: 290px;
+    left: 398px;
+}
+
+/* GUESS THE WORD */
+
+.guess {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 65%;
+}
+
+.alphabet {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: flex-start;
+    width: 85%;
+    min-height: 165px;
+    border: 3px solid #44B35D;
+    background-color: green;
+}
+
+.alphabet div {
+    width: 7%;
+}
+
+.letter {
+    width: 100%;
+    height: 80px;
+}
+
+.wordLetter {
+    width: 60px;
+    height: 80px;
+}
+
+.letter:hover {
+    cursor: pointer;
+}
+
+.fill {
+    display: flex;
+    justify-content: center;
+    width: 85%;
+    min-height: 90px;
+    margin-bottom: 30px;
+}
+
+.guessLetter {
+    border: 3px solid red;
+    background-color: brown;
+}
+
+.basket {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 1070px) {
+    .letter {
+        width: 10px;
+        height: 10px;
+    }
+
+    .alphabet {
+        width: 50%;
+        min-width: 150px;
+        min-height: 45px;
+    }
+
+    .guess {
+        align-items: flex-start;
+    }
+
+    .fill {
+        width: 85%;
+        min-height: 45px;
+        margin-bottom: 30px;
+    }
+
+    .wordLetter {
+        width: 30px;
+        height: 40px;
+    }
+}
+
+/* ANIMATIONS */
+
+@keyframes appleRoll {
+    0% {
+        transform: rotateZ()
+    }
+
+    75% {
+        transform: rotateZ(2.25turn);
+    }
+
+    100% {
+        top: 561px;
+    }
+}
+
+@keyframes deformation {
+    0% {
+        transform: scaleX(1);
+        transform: scaleY(1);
+    }
+
+    100% {
+        transform: scaleX(1.50);
+        transform: scaleY(0.9);
+    }
+}
+
+@keyframes shakeLetter {
+    0% {
+        transform: scale(1, 1);
+    }
+
+    50% {
+        transform: rotateZ(-0.25turn);
+    }
+
+    100% {
+        transform: rotateZ(0.25turn);
+    }
+}
