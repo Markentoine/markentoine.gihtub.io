@@ -27,9 +27,9 @@ $(function () {
       'pfirsich', 'birne', 'ananas', 'pflaume', 'himbeere', 'erdbeere', 'wassermelone',
     ],
 
-    _FR: ['banane', 'pomme', 'abricot', 'cassis', 'mûre', 'myrtille', 'cerise', 'avocat', 'figue',
-      'raisin', 'citron', 'litchi', 'mangue', 'nectarine', 'orange', 'papaye',
-      'pêche', 'poire', 'ananas', 'prune', 'framboise', 'fraise', 'pastèque'
+    _FR: ['banane', 'pomme', 'abricot', 'cassis', 'mure', 'myrtille', 'cerise', 'avocat', 'figue',
+      'raisin', 'citron', 'litchi', 'mangue', 'nectarine', 'orange', 'papaye', 'myrtille', 
+      'peche', 'poire', 'ananas', 'prune', 'framboise', 'fraise', 'pasteque', 'mandarine', 'griotte', 'groseille'
     ],
 
     _HU: ['cseresznye', 'banan', 'alma', 'barack', 'ribizli', 'narancs', 'korte', 'szilva', 'eper',
