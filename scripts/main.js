@@ -112,11 +112,11 @@ $(function () {
     },
 
     revealAllLetters: function (wordLetters, color = 'green') {
-      wordLetters.forEach(letter => revealLetter(letter, color));
+      wordLetters.forEach(letter => this.revealLetter(letter, color));
     },
 
     
-    resetBoard: function () {
+    reset: function () {
       //    removes the word
       $('.guessLetter').remove();
       //    resets  the alphabet
@@ -154,7 +154,7 @@ $(function () {
     $message.text('');
     $message.text(message);
   }
-  
+
   var slideUpMenu = function () {
     $menu.slideUp();
     setTimeout(() => {
@@ -186,14 +186,14 @@ $(function () {
           var currentAlphaLetter = $(letter).attr('data-id');
 
           if (currentAlphaLetter === currentChosenLetter) {
-            revealLetter(letter);
+            Board.revealLetter(letter);
           }
         });
 
         if (allLettersGuessed()) {
           messaging(UWIN);
           currentGame.addFruitBasket();
-          addFruitToList();
+          Board.addFruitToList();
           animateLetters();
           $alphabet.off('click');
         }
@@ -207,7 +207,7 @@ $(function () {
           animateApple(fallingApple);
           animateTree();
           messaging(ULOOSE);
-          revealAllLetters(currentWordLetters, 'red');
+          Board.revealAllLetters(currentWordLetters, 'red');
           $alphabet.off('click');
         }
       }
@@ -327,7 +327,7 @@ $(function () {
       // English is the default language
       pickAWord = currentGame['pickAWord_EN'];
     }
-    resetBoard();
+    Board.reset();
     setUpNewRound();
   })
 
@@ -353,13 +353,13 @@ $(function () {
     if (currentGame) {
       currentGame.updateLanguage(language);
       changeLanguage();
-      resetBoard();
+      Board.reset();
       setUpNewRound();
     } else {
       currentGame = Object.create(Game);
       currentGame.init();
       changeLanguage();
-      resetBoard();
+      Board.reset();
       setUpNewRound();
     }
     // indicates which language is in use and which languages have been already picked
