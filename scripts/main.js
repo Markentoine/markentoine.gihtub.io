@@ -1,22 +1,22 @@
 $(function () {
-  var APPLES = ['_1', '_2', '_3', '_4', '_5', '_6', '_7', '_8'];
+  const APPLES = ['_1', '_2', '_3', '_4', '_5', '_6', '_7', '_8'];
   // DOM elements
-  var $openMenu = $('.openMenu');
-  var $hamburger = $('#hamburger');
-  var $closeMenu = $('.closeMenu');
-  var $cross = $('#cross');
-  var $menu = $('.menu');
-  var $start = $('.start');
-  var $restart = $('.restart');
-  var $language = $('.language');
-  var $alphabet = $('.alphabet');
-  var $message = $('.message');
+  const $openMenu = $('.openMenu');
+  const $hamburger = $('#hamburger');
+  const $closeMenu = $('.closeMenu');
+  const $cross = $('#cross');
+  const $menu = $('.menu');
+  const $start = $('.start');
+  const $restart = $('.restart');
+  const $language = $('.language');
+  const $alphabet = $('.alphabet');
+  const $message = $('.message');
   //
   var currentGame;
   var currentRound;
   var pickAWord;
   var applesCopy = [].slice.call(APPLES);
-  var LANGUAGES = {
+  const LANGUAGES = {
     _EN: ['banana', 'apple', 'apricot', 'blackcurrant', 'blackberry', 'blueberry', 'cherry',
       'avocado', 'coconut', 'fig', 'grape', 'kiwi', 'lemon', 'lime', 'lychee', 'mango', 'nectarine',
       'orange', 'papaya', 'peach', 'pear', 'pineapple', 'plum', 'raspberry', 'strawberry', 'watermelon'
@@ -37,36 +37,36 @@ $(function () {
     ]
   }
 
-  var HEADERS = {
+  const HEADERS = {
     _EN: 'PICK A FRUIT',
     _GE: 'PFLUCKE EINE FRUCHT',
     _FR: 'CUEILLEZ UN FRUIT',
     _HU: 'VALASSZ EGY GYUMOLCSOT',
   }
   // messages
-  var CHOOSE = "CHOOSE A LETTER"
-  var ULOOSE = "Harvest is done... You didn't make it...";
-  var UWIN = "Well done! You have a new fruit in your basket!";
-  var NO_MORE_WORDS = "Sorry, You picked all the fruits!";
-  var RESTART = "Please, Restart the game from the menu!";
+  const CHOOSE = "CHOOSE A LETTER"
+  const ULOOSE = "Harvest is done... You didn't make it...";
+  const UWIN = "Well done! You have a new fruit in your basket!";
+  const NO_MORE_WORDS = "Sorry, You picked all the fruits!";
+  const RESTART = "Please, Restart the game from the menu!";
 
   var buildPick = function (language) {
-    var WORDS = LANGUAGES[language];
+    let WORDS = LANGUAGES[language];
     return function pickWord() {
-      var randomIndex = Math.floor(Math.random() * (WORDS.length));
-      var wordPicked = WORDS.splice(randomIndex, 1);
+      let randomIndex = Math.floor(Math.random() * (WORDS.length));
+      let wordPicked = WORDS.splice(randomIndex, 1);
       return wordPicked[0];
     }
   }
 
   var randomApple = function randomApple() {
-    var randomIndex = Math.floor(Math.random() * applesCopy.length);
+    let randomIndex = Math.floor(Math.random() * applesCopy.length);
     return document.querySelector(`#${applesCopy.splice(randomIndex, 1)[0]}`);
   }
 
   // ----->> ANIMATIONS <<----- //
 
-  var Animation = {
+  const Animation = {
 
     appleFall: function (element) {
       //Animates the fall and the roll of the apple
@@ -95,7 +95,7 @@ $(function () {
       })
     },
   }
-  
+
   var allLettersGuessed = function () {
     return currentRound.uniqLetters.every(letter => currentRound.lettersGuessed.includes(letter));
   }
@@ -178,7 +178,7 @@ $(function () {
   
   // MAIN OBJECTS //
   
-  var Board = {
+  const Board = {
 
     revealLetter: function reveaLetter(letter, color = 'green') {
       //deblur the letter
@@ -227,7 +227,7 @@ $(function () {
 
   }
 
-  var Game = {
+  const Game = {
     init: function () {
       this.basket = [];
       this.fruitsPicked = 0;
@@ -252,7 +252,7 @@ $(function () {
     }
   }
 
-  var Round = function (word) {
+  const Round = function (word) {
 
     function SetNewRound() {
       this.wordLetters = word.split('').map(letter => letter.toUpperCase());
