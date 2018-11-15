@@ -28,7 +28,7 @@ $(function () {
     ],
 
     _FR: ['banane', 'pomme', 'abricot', 'cassis', 'mure', 'myrtille', 'cerise', 'avocat', 'figue',
-      'raisin', 'citron', 'litchi', 'mangue', 'nectarine', 'orange', 'papaye', 'myrtille', 
+      'raisin', 'citron', 'litchi', 'mangue', 'nectarine', 'orange', 'papaye', 'myrtille',
       'peche', 'poire', 'ananas', 'prune', 'framboise', 'fraise', 'pasteque', 'mandarine', 'griotte', 'groseille'
     ],
 
@@ -95,23 +95,56 @@ $(function () {
 
   // ----->> BOARD MANIPULATIONS <<----- //
 
-  var revealLetter = function reveaLetter(letter, color = 'green') {
-    //deblur the letter
-    $(letter).css({
-      'transition': 'filter 200ms ease',
-      'filter': ''
-    });
-    // change the border
-    $(letter).parent().css({
-      'border': '3px solid #44B35D',
-      'transition': 'background 400ms ease',
-      'background-color': `${color}`
-    });
+  var Board = {
+
+    revealLetter: function reveaLetter(letter, color = 'green') {
+      //deblur the letter
+      $(letter).css({
+        'transition': 'filter 200ms ease',
+        'filter': ''
+      });
+      // change the border
+      $(letter).parent().css({
+        'border': '3px solid #44B35D',
+        'transition': 'background 400ms ease',
+        'background-color': `${color}`
+      })
+    },
+
+    revealAllLetters: function (wordLetters, color = 'green') {
+      wordLetters.forEach(letter => revealLetter(letter, color));
+    },
+
+    
+    resetBoard: function () {
+      //    removes the word
+      $('.guessLetter').remove();
+      //    resets  the alphabet
+      $('.letter').css('filter', '');
+      //    resets the tree
+      animateTreeReverse();
+      //    resets the apples
+      applesCopy = [].slice.call(APPLES);
+      document.querySelectorAll('.apple').forEach(apple => {
+        var top = $(apple).attr('data-top');
+        $(apple).css({
+          'top': `${top}`,
+          'animation': ''
+        });
+      })
+      //    resets message
+      $message.text(CHOOSE);
+    },
+
+    addFruitToList: function addFruitToList() {
+      $('.basket_list').text(`${currentGame.basket.reduce( (result, word) => {
+        return result = result ? result + ', ' + word : word;
+        }, '')}`);
+    },
+
   }
 
-  var revealAllLetters = function (wordLetters, color = 'green') {
-    wordLetters.forEach(letter => revealLetter(letter, color));
-  }
+
 
   var allLettersGuessed = function () {
     return currentRound.uniqLetters.every(letter => currentRound.lettersGuessed.includes(letter));
@@ -121,33 +154,7 @@ $(function () {
     $message.text('');
     $message.text(message);
   }
-
-  var resetBoard = function () {
-    //    removes the word
-    $('.guessLetter').remove();
-    //    resets  the alphabet
-    $('.letter').css('filter', '');
-    //    resets the tree
-    animateTreeReverse();
-    //    resets the apples
-    applesCopy = [].slice.call(APPLES);
-    document.querySelectorAll('.apple').forEach(apple => {
-      var top = $(apple).attr('data-top');
-      $(apple).css({
-        'top': `${top}`,
-        'animation': ''
-      });
-    })
-    //    resets message
-    $message.text(CHOOSE);
-  }
-
-  var addFruitToList = function addFruitToList() {
-    $('.basket_list').text(`${currentGame.basket.reduce( (result, word) => {
-      return result = result ? result + ', ' + word : word;
-      }, '')}`);
-  }
-
+  
   var slideUpMenu = function () {
     $menu.slideUp();
     setTimeout(() => {
