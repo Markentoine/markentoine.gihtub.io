@@ -66,35 +66,118 @@ $(function () {
 
   // ----->> ANIMATIONS <<----- //
 
-  var animateApple = function (element) {
-    //Animates the fall and the roll of the apple
-    $(element).css('animation', 'appleRoll 400ms cubic-bezier(.42, -.3, 1, 1)');
+  var Animation = {
+
+    appleFall: function (element) {
+      //Animates the fall and the roll of the apple
+      $(element).css('animation', 'appleRoll 400ms cubic-bezier(.42, -.3, 1, 1)');
+      setTimeout(() => {
+        $(element).css('top', '561px');
+      }, 400);
+      setTimeout(() => {
+        $(element).children().css('animation', 'deformation 100ms ease-out')
+      }, 405);
+    },
+
+    treeToAutumn: function () {
+      $('#springTree').fadeOut(1000);
+      $('#autumTree').fadeIn(800);
+    },
+
+    treeToASpring: function () {
+      $('#autumTree').fadeOut(400);
+      $('#springTree').fadeIn(400);
+    },
+
+    lettersRoll: function () {
+      document.querySelectorAll('.wordLetter').forEach(letter => {
+        $(letter).css('animation', 'shakeLetter 200ms ease-out');
+      })
+    },
+  }
+  
+  var allLettersGuessed = function () {
+    return currentRound.uniqLetters.every(letter => currentRound.lettersGuessed.includes(letter));
+  }
+  
+  var messaging = function (message) {
+    $message.text('');
+    $message.text(message);
+  }
+  
+  var slideUpMenu = function () {
+    $menu.slideUp();
     setTimeout(() => {
-      $(element).css('top', '561px');
+      $hamburger.css('transform', '');
+      $hamburger.show();
     }, 400);
-    setTimeout(() => {
-      $(element).children().css('animation', 'deformation 100ms ease-out')
-    }, 405);
   }
-
-  var animateTree = function () {
-    $('#springTree').fadeOut(1000);
-    $('#autumTree').fadeIn(800);
+  
+  // ----->> APLHABET EVENTS HANDLING <<----- //
+  
+  var playGame = function playGame(e) {
+    var target = e.target;
+    var $target = $(target);
+    var targetLetterP = target.className === 'letter';
+    var currentChosenLetter = $target.attr('data-id');
+    var currentWordLetters = document.querySelectorAll('.wordLetter');
+    var neverDoneChoiceP = !currentRound.lettersTried.includes(currentChosenLetter);
+    
+    if (targetLetterP && neverDoneChoiceP) {
+      
+      // blur the chosen letter
+      $target.css('filter', 'blur(5px)');
+      currentRound.lettersTried.push(currentChosenLetter);
+      
+      if (currentRound.checkGoodGuess(currentChosenLetter)) {
+        currentRound.lettersGuessed.push(currentChosenLetter);
+        //reveals correct letters in the word
+        currentWordLetters.forEach(function (letter) {
+          var currentAlphaLetter = $(letter).attr('data-id');
+          
+          if (currentAlphaLetter === currentChosenLetter) {
+            Board.revealLetter(letter);
+          }
+        });
+        
+        if (allLettersGuessed()) {
+          messaging(UWIN);
+          currentGame.addFruitBasket();
+          Board.addFruitBasket();
+          Animation.lettersRoll();
+          $alphabet.off('click');
+        }
+        // an apple falls if the guess is not right
+      } else {
+        var fallingApple = randomApple();
+        
+        if (fallingApple && applesCopy.length >= 1) {
+          Animation.appleFall(fallingApple);
+        } else {
+          Animation.appleFall(fallingApple);
+          Animation.treeToAutumn();
+          messaging(ULOOSE);
+          Board.revealAllLetters(currentWordLetters, 'red');
+          $alphabet.off('click');
+        }
+      }
+    }
   }
-
-  var animateTreeReverse = function () {
-    $('#autumTree').fadeOut(400);
-    $('#springTree').fadeIn(400);
+  
+  var setUpNewRound = function () {
+    currentRound = Round(pickAWord());
+    if (currentRound) {
+      currentRound.play();
+    } else {
+      messaging(NO_MORE_WORDS);
+      setTimeout(() => {
+        messaging(RESTART);
+      }, 1000);
+    }
   }
-
-  var animateLetters = function () {
-    document.querySelectorAll('.wordLetter').forEach(letter => {
-      $(letter).css('animation', 'shakeLetter 200ms ease-out');
-    });
-  }
-
-  // ----->> BOARD MANIPULATIONS <<----- //
-
+  
+  // MAIN OBJECTS //
+  
   var Board = {
 
     revealLetter: function reveaLetter(letter, color = 'green') {
@@ -122,7 +205,7 @@ $(function () {
       //    resets  the alphabet
       $('.letter').css('filter', '');
       //    resets the tree
-      animateTreeReverse();
+      Animation.treeToASpring();
       //    resets the apples
       applesCopy = [].slice.call(APPLES);
       document.querySelectorAll('.apple').forEach(apple => {
@@ -136,97 +219,13 @@ $(function () {
       $message.text(CHOOSE);
     },
 
-    addFruitToList: function addFruitToList() {
+    addFruitBasket: function addFruitBasket() {
       $('.basket_list').text(`${currentGame.basket.reduce( (result, word) => {
         return result = result ? result + ', ' + word : word;
         }, '')}`);
     },
 
   }
-
-
-
-  var allLettersGuessed = function () {
-    return currentRound.uniqLetters.every(letter => currentRound.lettersGuessed.includes(letter));
-  }
-
-  var messaging = function (message) {
-    $message.text('');
-    $message.text(message);
-  }
-
-  var slideUpMenu = function () {
-    $menu.slideUp();
-    setTimeout(() => {
-      $hamburger.css('transform', '');
-      $hamburger.show();
-    }, 400);
-  }
-
-  // ----->> APLHABET EVENTS HANDLING <<----- //
-
-  var playGame = function playGame(e) {
-    var target = e.target;
-    var $target = $(target);
-    var targetLetterP = target.className === 'letter';
-    var currentChosenLetter = $target.attr('data-id');
-    var currentWordLetters = document.querySelectorAll('.wordLetter');
-    var neverDoneChoiceP = !currentRound.lettersTried.includes(currentChosenLetter);
-
-    if (targetLetterP && neverDoneChoiceP) {
-
-      // blur the chosen letter
-      $target.css('filter', 'blur(5px)');
-      currentRound.lettersTried.push(currentChosenLetter);
-
-      if (currentRound.checkGoodGuess(currentChosenLetter)) {
-        currentRound.lettersGuessed.push(currentChosenLetter);
-        //reveals correct letters in the word
-        currentWordLetters.forEach(function (letter) {
-          var currentAlphaLetter = $(letter).attr('data-id');
-
-          if (currentAlphaLetter === currentChosenLetter) {
-            Board.revealLetter(letter);
-          }
-        });
-
-        if (allLettersGuessed()) {
-          messaging(UWIN);
-          currentGame.addFruitBasket();
-          Board.addFruitToList();
-          animateLetters();
-          $alphabet.off('click');
-        }
-        // an apple falls if the guess is not right
-      } else {
-        var fallingApple = randomApple();
-
-        if (fallingApple && applesCopy.length >= 1) {
-          animateApple(fallingApple);
-        } else {
-          animateApple(fallingApple);
-          animateTree();
-          messaging(ULOOSE);
-          Board.revealAllLetters(currentWordLetters, 'red');
-          $alphabet.off('click');
-        }
-      }
-    }
-  }
-
-  var setUpNewRound = function () {
-    currentRound = Round(pickAWord());
-    if (currentRound) {
-      currentRound.play();
-    } else {
-      messaging(NO_MORE_WORDS);
-      setTimeout(() => {
-        messaging(RESTART);
-      }, 1000);
-    }
-  }
-
-  // MAIN OBJECTS //
 
   var Game = {
     init: function () {
