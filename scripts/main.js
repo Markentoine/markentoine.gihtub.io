@@ -143,7 +143,7 @@ $(function () {
         if (allLettersGuessed()) {
           messaging(UWIN);
           currentGame.addFruitBasket();
-          Board.addFruitBasket();
+          Board.addFruitList();
           Animation.lettersRoll();
           $alphabet.off('click');
         }
@@ -219,7 +219,7 @@ $(function () {
       $message.text(CHOOSE);
     },
 
-    addFruitBasket: function addFruitBasket() {
+    addFruitList: function addFruitList() {
       $('.basket_list').text(`${currentGame.basket.reduce( (result, word) => {
         return result = result ? result + ', ' + word : word;
         }, '')}`);
